@@ -1,6 +1,6 @@
 {
   "name": "bagoo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple JSON store for your favrourite commands or for holding onto short notes",
   "main": "app.js",
   "scripts": {
