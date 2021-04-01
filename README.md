@@ -1,5 +1,5 @@
 # Bagoo
-A tool for storing your favourite commands and short notes.
+A simple CLI tool for storing your favrourite commands or for holding onto short notes
 ## Installation
 `npm install bagoo`
 
@@ -10,7 +10,7 @@ An item in baggo consists of:
 - **description** to help explain what the item is or does
 - **category** to group related items together
 
-**NOTE**: Not suitable for storing sensitive information such as passwords or secrets. 
+**NOTE**: This tool stores items in a JSON file. Storage is very basic and is not suitable for storing sensitive information such as passwords or secrets. 
 ### Available commands
 - **add** - an item to your bag
 - **get** - retrieve an item

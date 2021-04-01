@@ -1,11 +1,21 @@
 {
   "name": "bagoo",
   "version": "1.0.2",
-  "description": "A tool for storing your favrourite commands or short notes",
+  "description": "A simple JSON store for your favrourite commands or for holding onto short notes",
   "main": "app.js",
   "scripts": {
     "test": "jest tests/*spec.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DominicH247/bagoo.git"
+  },
+  "keywords": [
+    "storage",
+    "simple storage",
+    "json storage",
+    "notes"
+  ],
   "author": "Dominic Hui",
   "license": "MIT",
   "dependencies": {
