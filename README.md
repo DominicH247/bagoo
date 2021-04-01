@@ -76,7 +76,7 @@ Available catagories:
 - something else
 ```
 
-Specifying a category will list all items within that category and display the item name and its description
+Specifying a category will list all items within that category and display the item name and its description.
 
 Example
 ```sh
@@ -92,6 +92,7 @@ Items recorded under linux commands:
 
 ### Removing an item
 You can remove a specific item.
+
 Example 
 ```sh
 bag remove -n="make directory"
@@ -118,14 +119,14 @@ Example
 ```sh
 bag copy
 ```
-You will then be prompted 
+You will then be prompted.
 ```
 Enter the path to where you want to export your bag to:
 ```
 Enter the path of where you want to copy the bag to.
 i.e `/home/documents`
 
-You will then be notfied
+You will then be notfied.
 ```
 Copying your bag to /home/documents
 ```
