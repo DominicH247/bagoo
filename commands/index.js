@@ -1,11 +1,12 @@
 const fs = require("fs").promises;
 const prompt = require("prompt")
 const shelljs = require("shelljs");
+const appRoot = require("app-root-path");
 
-let bagoo = "./bagoo.json";
+let bagoo = appRoot.path.concat("/bagoo.json");
 
 if(process.env.NODE_ENV === "test"){
-    bagoo = "./tests/test.json"
+    bagoo = appRoot.path.concat("/tests/test.json");
 }
 
 /**
