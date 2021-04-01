@@ -21,7 +21,7 @@ exports.add = (bagoo, itemName) => {
         return ref
     }, {});
 
-    addItem(itemName, itemDto)
+    addItem(itemName, itemDto).catch(err => console.log(err));
 };
 
 /**
@@ -64,7 +64,8 @@ exports.remove = (bagoo, itemName) => {
             } else {
                 console.log(`Removed ${itemName} from your bag`)
             }
-        });
+        })
+        .catch(err => console.log(err))
     }
 
     if(isPurge){
@@ -109,7 +110,8 @@ exports.list = (bagoo) => {
                 console.log("Available catagories:")
                 list.forEach(cat => console.log(`- ${cat}`))
             }
-        });
+        })
+        .catch(err => console.log(err));
 };
 
 /**

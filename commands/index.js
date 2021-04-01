@@ -53,7 +53,8 @@ exports.addItem = (itemName, itemDto = {}) => {
                 // Check if new item contains a value
                 isContainingValue = Object.keys(dtoCopy).includes("value");
                 if(!isContainingValue){
-                    return "Please enter a value for your new item"
+                    console.log("<<")
+                    return Promise.reject("Please enter a value for your new item");
                 }
             }
 
@@ -101,7 +102,7 @@ exports.listItems = (catagory = null) => {
                     })
                     .map(itemName => ({ [itemName]: content[itemName]?.description || "No description" }))
 
-                return catagories.length ? catagories : "Catagory does not exist";
+                return catagories.length ? catagories : Promise.reject("Catagory does not exist");
             } 
 
             return [...new Set(Object.keys(content).map(itemName => content[itemName].catagory))];
@@ -124,7 +125,7 @@ exports.removeItem = (itemName = null, isPurge = false) => {
 
             // check if item exists
             if(!content?.[itemName]){
-                return "Item not found"
+                return Promise.reject("Item not found");
             }
 
             delete content[itemName];
