@@ -4,7 +4,7 @@
   "description": "A tool for storing your favrourite commands or short notes",
   "main": "app.js",
   "scripts": {
-    "test": "jest tests/*spec.js",
+    "test": "jest tests/*spec.js"
   },
   "author": "Dominic Hui",
   "license": "ISC",
