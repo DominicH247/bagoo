@@ -13,8 +13,8 @@ const bagoo = yargs
             describe: "description of the item",
             demandOption: false
         },
-        catagory: {
-            describe: "add your item to a catagory",
+        category: {
+            describe: "add your item to a category",
             demandOption: false
         },
         value: {
@@ -31,8 +31,8 @@ const bagoo = yargs
             describe: "read the description of the item",
             demandOption: false
         },
-        catagory: {
-            describe: "read the catagory of the item",
+        category: {
+            describe: "read the category of the item",
             demandOption: false
         },
         value: {
@@ -40,9 +40,9 @@ const bagoo = yargs
             demandOption: false
         }
     })
-    .command("list", "list all catagories within your bag or all items under a particular catagory", {
-        catagory: {
-            describe: "name of the catagory",
+    .command("list", "list all catagories within your bag or all items under a particular category", {
+        category: {
+            describe: "name of the category",
             demandOption: false
         }
     })
@@ -61,7 +61,7 @@ const bagoo = yargs
     .help()
     .alias("help", "h")
     .alias("description", "d")
-    .alias("catagory", "c")
+    .alias("category", "c")
     .alias("value", "v")
     .alias("name", "n")
     .alias("purge", "p")

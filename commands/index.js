@@ -61,7 +61,7 @@ exports.addItem = (itemName, itemDto = {}) => {
 
             // collect the invalid keys
             const invalidFlags = Object.keys(itemDto).filter(key => {
-                if(key !== "description" && key !== "value" && key !== "catagory"){
+                if(key !== "description" && key !== "value" && key !== "category"){
                     return key
                 }
             });
@@ -69,7 +69,7 @@ exports.addItem = (itemName, itemDto = {}) => {
             invalidFlags.forEach(flag => delete dtoCopy[flag])
 
             const newItemObj = {
-                catagory: dtoCopy?.catagory || "other",
+                category: dtoCopy?.category || "other",
                 description: dtoCopy?.description || "",
                 value: dtoCopy?.value || "",
             }
@@ -86,27 +86,27 @@ exports.addItem = (itemName, itemDto = {}) => {
 };
 
 /**
- * Lists the available catagories within the bagoo json store, or if passed an existing catagory will list all items held within that catagory 
- * @param {String} catagory 
+ * Lists the available catagories within the bagoo json store, or if passed an existing category will list all items held within that category 
+ * @param {String} category 
  * @returns {Array}
  */
-exports.listItems = (catagory = null) => {
+exports.listItems = (category = null) => {
     return fs.readFile(bagoo)
         .then(body => JSON.parse(body))
         .then(content => {
-            if(catagory !== null){
+            if(category !== null){
                 const catagories = Object.keys(content)
                     .filter(itemName => {
-                        if(content[itemName].catagory === catagory){
+                        if(content[itemName].category === category){
                             return itemName;
                         };
                     })
                     .map(itemName => ({ [itemName]: content[itemName]?.description || "No description" }))
 
-                return catagories.length ? catagories : Promise.reject("Catagory does not exist");
+                return catagories.length ? catagories : Promise.reject("category does not exist");
             } 
 
-            return [...new Set(Object.keys(content).map(itemName => content[itemName].catagory))];
+            return [...new Set(Object.keys(content).map(itemName => content[itemName].category))];
         })
 };
 

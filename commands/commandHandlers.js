@@ -15,7 +15,7 @@ const {
 exports.add = (bagoo, itemName) => {
     // create itemDto
     const itemDto = Object.keys(bagoo).reduce((ref, curr) => {
-        if(curr === "catagory" || curr === "value" || curr === "description"){
+        if(curr === "category" || curr === "value" || curr === "description"){
             ref[curr] = bagoo[curr]
         }
         return ref
@@ -32,7 +32,7 @@ exports.add = (bagoo, itemName) => {
 exports.get = (bagoo, itemName) => {
     // get the first flag passed in ignores any associated value
     const flag = Object.keys(bagoo).filter(flag => {
-        if (flag === "value" || flag === "description" || flag === "catagory"){
+        if (flag === "value" || flag === "description" || flag === "category"){
             return flag
         }
     })[0]
@@ -97,11 +97,11 @@ exports.remove = (bagoo, itemName) => {
  * @param {Object} bagoo 
  */
 exports.list = (bagoo) => {
-    const catagory = bagoo?.catagory;
-    listItems(bagoo?.catagory)
+    const category = bagoo?.category;
+    listItems(bagoo?.category)
         .then(list => {
-            if(catagory){
-                console.log(`Items recorded under ${catagory}:`)
+            if(category){
+                console.log(`Items recorded under ${category}:`)
                 list.forEach(item => {
                     const entry = Object.entries(item)[0];
                     console.log(`- ${entry[0]} : ${entry[1]}`)

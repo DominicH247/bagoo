@@ -1,6 +1,5 @@
 # Bagoo
 A tool for storing your favourite commands and short notes.
-
 ## Installation
 `npm install bagoo`
 
@@ -9,19 +8,20 @@ An item in baggo consists of:
 - **name** to identify the item
 - **value** for the item
 - **description** to help explain what the item is or does
-- **catagory** to group related items together
+- **category** to group related items together
 
+**NOTE**: Not suitable for storing sensitive information such as passwords or secrets. 
 ### Available commands
 - **add** - an item to your bag
 - **get** - retrieve an item
-- **list** - lists all available catagories or lists all items within a catagory
+- **list** - lists all available catagories or lists all items within a category
 - **remove** - an item or all items from your bag
 - **copy** - creates a copy of your bag to another location
 ### Adding an item to baggo
 - `--name | -n ` (mandatory)
 - `--value | -v` (mandatory)
 - `--description | -d` (optional)
-- `--catagory | -c` (optional - defaults to "other")
+- `--category | -c` (optional - defaults to "other")
 
 #### example:
 ```sh
@@ -40,13 +40,13 @@ bag get -n="make directory"
 
 Returns
 ```
-catagory: linux commands
+category: linux commands
 description: command for creating a new directory
 value: mkdir
 ```
 Optionally specify one of:
 - `--value | -v`
-- `--catagory | -c`
+- `--category | -c`
 - `--description | -d`
 
 Will return the the value of the property specified for the item.
@@ -76,7 +76,7 @@ Available catagories:
 - something else
 ```
 
-Specifying a catagory will list all items within that catagory and display the item name and its description
+Specifying a category will list all items within that category and display the item name and its description
 
 Example
 ```sh

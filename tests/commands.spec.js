@@ -4,37 +4,37 @@ const fs = require("fs").promises;
 beforeEach(() => {
     const testData = {
         "item 1": {
-          "catagory": "cat1",
+          "category": "cat1",
           "description": "This is a description1",
           "value": "this is the value of item1"
         },
         "item 2": {
-          "catagory": "cat1",
+          "category": "cat1",
           "description": "This is a description2",
           "value": "this is a the value of item2"
         },
         "item 3": {
-          "catagory": "cat2",
+          "category": "cat2",
           "description": "This is a description3",
           "value": "this is a the value of item3"
         },
         "item 4": {
-            "catagory": "catB",
+            "category": "catB",
             "description": "This is a description4",
             "value": "this is the value of item4"
           },
           "item 5": {
-            "catagory": "cat1",
+            "category": "cat1",
             "description": "This is a description5",
             "value": "this is a the value of item5"
           },
           "item 6": {
-            "catagory": "catB",
+            "category": "catB",
             "description": "This is a description6",
             "value": "this is a the value of item6"
           },
           "item 7": {
-            "catagory": "catA",
+            "category": "catA",
             "description": "This is a description7",
             "value": "this is a the value of item7"
           },
@@ -47,11 +47,11 @@ afterEach(() => fs.writeFile("./tests/test.json", JSON.stringify({})))
 
 describe("getItem()", () => {
     describe("passing in only item name", () => {
-        it("when pass in an existing item name it returns the catagory, description and value", (done) => {
+        it("when pass in an existing item name it returns the category, description and value", (done) => {
             getItem("item 1").then(result => {
                 expect(result).toEqual(
                         {
-                            "catagory" : "cat1",
+                            "category" : "cat1",
                             "description": "This is a description1",
                             "value": "this is the value of item1" 
                         }
@@ -86,8 +86,8 @@ describe("getItem()", () => {
                 done();
             });
         })
-        it("When passed an existing item and --catagory flag it returns item catagory", (done) => {
-            getItem("item 1", "catagory").then(result => {
+        it("When passed an existing item and --category flag it returns item category", (done) => {
+            getItem("item 1", "category").then(result => {
                 expect(result).toEqual("cat1");
                 done();
             });
@@ -108,7 +108,7 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["brand new item"]).toEqual({
-                    catagory: "other",
+                    category: "other",
                     description: "",
                     value: "A VALUE"
                 })
@@ -120,19 +120,19 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["brand new item"]).toEqual({
-                    catagory: "other",
+                    category: "other",
                     description: "A DESCRIPTION",
                     value: "A VALUE"
                 })
                 done()
             })
         })
-        it("when passing a new item name and object containing key of value, description and catagory it adds it to json store", (done) => {
-            addItem("brand new item", {value: "A VALUE", description: "A DESCRIPTION", catagory: "CATAGORY"}).then(() => fs.readFile("./tests/test.json"))
+        it("when passing a new item name and object containing key of value, description and category it adds it to json store", (done) => {
+            addItem("brand new item", {value: "A VALUE", description: "A DESCRIPTION", category: "category"}).then(() => fs.readFile("./tests/test.json"))
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["brand new item"]).toEqual({
-                    catagory: "CATAGORY",
+                    category: "category",
                     description: "A DESCRIPTION",
                     value: "A VALUE"
                 })
@@ -158,7 +158,7 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 1"]).toEqual({
-                    catagory: "cat1",
+                    category: "cat1",
                     description: "This is a description1",
                     value: "UPDATED VALUE"
                 })
@@ -170,19 +170,19 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 1"]).toEqual({
-                    catagory: "cat1",
+                    category: "cat1",
                     description: "UPDATED DESCRIPTION",
                     value: "this is the value of item1"
                 })
                 done()
             })
         })
-        it("existing item with flag of catagory, overwrites the catagory", (done) => {
-            addItem("item 1", {catagory: "UPDATED CATAGORY"}).then(() => fs.readFile("./tests/test.json"))
+        it("existing item with flag of category, overwrites the category", (done) => {
+            addItem("item 1", {category: "UPDATED category"}).then(() => fs.readFile("./tests/test.json"))
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 1"]).toEqual({
-                    catagory: "UPDATED CATAGORY",
+                    category: "UPDATED category",
                     description: "This is a description1",
                     value: "this is the value of item1"
                 })
@@ -191,14 +191,14 @@ describe("addItem()", () => {
         })
         it("updates item when all flags are passed", (done) => {
             addItem("item 3", {
-                catagory: "UPDATED CATAGORY",
+                category: "UPDATED category",
                 description: "AN UPDATED DESCRIPTION",
                 value: "AN UPDATED VALUE"
             }).then(() => fs.readFile("./tests/test.json"))
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 3"]).toEqual({
-                    catagory: "UPDATED CATAGORY",
+                    category: "UPDATED category",
                     description: "AN UPDATED DESCRIPTION",
                     value: "AN UPDATED VALUE"
                 })
@@ -207,7 +207,7 @@ describe("addItem()", () => {
         })
         it("if passed an invalid flag it gets ignored", (done) => {
             addItem("item 3", {
-                catagory: "UPDATED CATAGORY",
+                category: "UPDATED category",
                 description: "AN UPDATED DESCRIPTION",
                 value: "AN UPDATED VALUE",
                 invalid: "NOT VALID"
@@ -215,7 +215,7 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 3"]).toEqual({
-                    catagory: "UPDATED CATAGORY",
+                    category: "UPDATED category",
                     description: "AN UPDATED DESCRIPTION",
                     value: "AN UPDATED VALUE"
                 })
@@ -224,7 +224,7 @@ describe("addItem()", () => {
         })
         it("if passed multiple invalid flag they all get ignored", (done) => {
             addItem("item 3", {
-                catagory: "UPDATED CATAGORY",
+                category: "UPDATED category",
                 description: "AN UPDATED DESCRIPTION",
                 value: "AN UPDATED VALUE",
                 invalid: "NOT VALID",
@@ -234,7 +234,7 @@ describe("addItem()", () => {
             .then(body => JSON.parse(body))
             .then(content => {
                 expect(content["item 3"]).toEqual({
-                    catagory: "UPDATED CATAGORY",
+                    category: "UPDATED category",
                     description: "AN UPDATED DESCRIPTION",
                     value: "AN UPDATED VALUE"
                 })
@@ -243,7 +243,7 @@ describe("addItem()", () => {
         })
         it("arguments are not mutated", (done) => {
             const mockItem = {
-                catagory: "UPDATED CATAGORY",
+                category: "UPDATED category",
                 description: "AN UPDATED DESCRIPTION",
                 value: "AN UPDATED VALUE",
                 invalid: "NOT VALID",
@@ -253,7 +253,7 @@ describe("addItem()", () => {
 
             addItem("item 3", mockItem).then(content => {
                 expect(mockItem).toEqual({
-                    catagory: "UPDATED CATAGORY",
+                    category: "UPDATED category",
                     description: "AN UPDATED DESCRIPTION",
                     value: "AN UPDATED VALUE",
                     invalid: "NOT VALID",
@@ -267,8 +267,8 @@ describe("addItem()", () => {
 });
 
 describe("listItems()", () => {
-    describe("passing in a catagory", () => {
-        it("list all items within an existing catagory", (done) => {
+    describe("passing in a category", () => {
+        it("list all items within an existing category", (done) => {
             listItems("cat1").then(content => {
                 const expectedResult = [
                     { "item 1": "This is a description1" },
@@ -279,15 +279,15 @@ describe("listItems()", () => {
                 done()
             })
         })
-        it("returns error message if catagory is not found", (done) => {
+        it("returns error message if category is not found", (done) => {
             listItems("not exist").catch(err => {
-                expect(err).toEqual("Catagory does not exist")
+                expect(err).toEqual("category does not exist")
                 done()
             })
         })
     })
-    describe("passing in empty catagory", () => {
-        it("lists all the catagories containing within the store when no catagory passed", (done) => {
+    describe("passing in empty category", () => {
+        it("lists all the catagories containing within the store when no category passed", (done) => {
             listItems().then(content => {
                 expect(content).toEqual([ 'cat1', 'cat2', 'catB', 'catA' ])
                 done()
