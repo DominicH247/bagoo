@@ -139,11 +139,16 @@ describe("addItem()", () => {
                 done()
             })
         })
-        it ("when passing a new item name with no flags return an error to enter a value", (done) => {
-            return addItem("DOES NOT EXIST").then((content) => {
-               
-                expect(content).toEqual("Please enter a value for your new item");
-                done()
+        it("when passing a new item name with no flags return an error to enter a value", (done) => {
+            return addItem("DOES NOT EXIST").catch(err => {
+                expect(err).toEqual("Please enter a value for your new item")
+                done();
+            })
+        })
+        it("when passing a new item name with value of empty stings return an error to enter a value", (done) => {
+            return addItem("something new", { value: "" }).catch(err => {
+                expect(err).toEqual("Please enter a value for your new item")
+                done();
             })
         })
     })
@@ -275,8 +280,8 @@ describe("listItems()", () => {
             })
         })
         it("returns error message if catagory is not found", (done) => {
-            listItems("not exist").then(content => {
-                expect(content).toEqual("Catagory does not exist")
+            listItems("not exist").catch(err => {
+                expect(err).toEqual("Catagory does not exist")
                 done()
             })
         })
@@ -303,8 +308,8 @@ describe("removeItem()", () => {
                 });
         });
         it("passing in a non existing item it returns message item not found", (done) => {
-            removeItem("random").then(result => {
-                expect(result).toEqual("Item not found");
+            removeItem("random").catch(err => {
+                expect(err).toEqual("Item not found");
                 done();
             });
         });
