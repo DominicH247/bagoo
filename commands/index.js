@@ -52,8 +52,7 @@ exports.addItem = (itemName, itemDto = {}) => {
             if(!isExistingItem){
                 // Check if new item contains a value
                 isContainingValue = Object.keys(dtoCopy).includes("value");
-                if(!isContainingValue){
-                    console.log("<<")
+                if(!isContainingValue || isContainingValue !== ""){
                     return Promise.reject("Please enter a value for your new item");
                 }
             }
