@@ -4,19 +4,19 @@ const {
     getItem,
     removeItem,
     listItems,
-    copyBaggo
+    copybagoo
 } = require("./index");
 
 /**
  * Add item command handler
- * @param {Object} baggo 
+ * @param {Object} bagoo 
  * @param {String} itemName 
  */
-exports.add = (baggo, itemName) => {
+exports.add = (bagoo, itemName) => {
     // create itemDto
-    const itemDto = Object.keys(baggo).reduce((ref, curr) => {
+    const itemDto = Object.keys(bagoo).reduce((ref, curr) => {
         if(curr === "catagory" || curr === "value" || curr === "description"){
-            ref[curr] = baggo[curr]
+            ref[curr] = bagoo[curr]
         }
         return ref
     }, {});
@@ -26,12 +26,12 @@ exports.add = (baggo, itemName) => {
 
 /**
  * Get item command handler
- * @param {Object} baggo 
+ * @param {Object} bagoo 
  * @param {String} itemName 
  */
-exports.get = (baggo, itemName) => {
+exports.get = (bagoo, itemName) => {
     // get the first flag passed in ignores any associated value
-    const flag = Object.keys(baggo).filter(flag => {
+    const flag = Object.keys(bagoo).filter(flag => {
         if (flag === "value" || flag === "description" || flag === "catagory"){
             return flag
         }
@@ -52,11 +52,11 @@ exports.get = (baggo, itemName) => {
 
 /**
  * Remove item command handler
- * @param {Object} baggo 
+ * @param {Object} bagoo 
  * @param {String} itemName 
  */
-exports.remove = (baggo, itemName) => {
-    let isPurge = baggo?.purge || false;
+exports.remove = (bagoo, itemName) => {
+    let isPurge = bagoo?.purge || false;
     const remove = () => {
         removeItem(itemName, isPurge).then(() => {
             if(isPurge){
@@ -93,11 +93,11 @@ exports.remove = (baggo, itemName) => {
 
 /**
  * Remove item command handler
- * @param {Object} baggo 
+ * @param {Object} bagoo 
  */
-exports.list = (baggo) => {
-    const catagory = baggo?.catagory;
-    listItems(baggo?.catagory)
+exports.list = (bagoo) => {
+    const catagory = bagoo?.catagory;
+    listItems(bagoo?.catagory)
         .then(list => {
             if(catagory){
                 console.log(`Items recorded under ${catagory}:`)
@@ -113,10 +113,10 @@ exports.list = (baggo) => {
 };
 
 /**
- * Copy baggo json store command handler
+ * Copy bagoo json store command handler
  */
 exports.copy = () => {
-    copyBaggo()
+    copybagoo()
 };
 
-exports.baseDefault = () => console.log("Please enter a valid command, for help type baggo --help");
+exports.baseDefault = () => console.log("Please enter a valid command, for help type bagoo --help");

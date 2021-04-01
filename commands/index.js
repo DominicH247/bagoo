@@ -2,20 +2,20 @@ const fs = require("fs").promises;
 const prompt = require("prompt")
 const shelljs = require("shelljs");
 
-let baggo = "./baggo.json";
+let bagoo = "./bagoo.json";
 
 if(process.env.NODE_ENV === "test"){
-    baggo = "./tests/test.json"
+    bagoo = "./tests/test.json"
 }
 
 /**
- * Retrieves a single item from the baggo json store
+ * Retrieves a single item from the bagoo json store
  * @param {String} itemName 
  * @param {string} flag 
  * @returns {Promise}
  */
 exports.getItem = (itemName, flag) => {
-    return fs.readFile(baggo)
+    return fs.readFile(bagoo)
         .then(body => JSON.parse(body))
         .then(content => {
             if(!content?.[itemName] || !itemName) {
@@ -35,13 +35,13 @@ exports.getItem = (itemName, flag) => {
 };
 
 /**
- * Adds an item to the baggo json store
+ * Adds an item to the bagoo json store
  * @param {String} itemName 
  * @param {Object} itemDto 
  * @returns {Promise}
  */
 exports.addItem = (itemName, itemDto = {}) => {
-    return fs.readFile(baggo)
+    return fs.readFile(bagoo)
         .then(body => JSON.parse(body))
         .then(content => {
             const dtoCopy = {...itemDto}
@@ -79,17 +79,17 @@ exports.addItem = (itemName, itemDto = {}) => {
                 ...transferObj
             }
 
-            return fs.writeFile(baggo, JSON.stringify(content, null, 2))
+            return fs.writeFile(bagoo, JSON.stringify(content, null, 2))
         })
 };
 
 /**
- * Lists the available catagories within the baggo json store, or if passed an existing catagory will list all items held within that catagory 
+ * Lists the available catagories within the bagoo json store, or if passed an existing catagory will list all items held within that catagory 
  * @param {String} catagory 
  * @returns {Array}
  */
 exports.listItems = (catagory = null) => {
-    return fs.readFile(baggo)
+    return fs.readFile(bagoo)
         .then(body => JSON.parse(body))
         .then(content => {
             if(catagory !== null){
@@ -115,11 +115,11 @@ exports.listItems = (catagory = null) => {
  * @returns {Promise}
  */
 exports.removeItem = (itemName = null, isPurge = false) => {
-    return fs.readFile(baggo)
+    return fs.readFile(bagoo)
         .then(body => JSON.parse(body))
         .then(content => {
             if(isPurge){
-                return fs.writeFile(baggo, JSON.stringify({}, null, 2))
+                return fs.writeFile(bagoo, JSON.stringify({}, null, 2))
             }
 
             // check if item exists
@@ -128,15 +128,15 @@ exports.removeItem = (itemName = null, isPurge = false) => {
             }
 
             delete content[itemName];
-            return fs.writeFile(baggo, JSON.stringify(content, null, 2))
+            return fs.writeFile(bagoo, JSON.stringify(content, null, 2))
         })
 };
 
 /**
- * Copys the baggo json store the path passed in by the user
+ * Copys the bagoo json store the path passed in by the user
  * Does not delete the original store or switches the store context
  */
-exports.copyBaggo = () => {
+exports.copybagoo = () => {
     prompt.message = "Enter the path to where you want to export your bag to";
     prompt.start()
     prompt.get("path", (err, result) => {
@@ -144,7 +144,7 @@ exports.copyBaggo = () => {
         const { path } = result;
         if(path){
             console.log(`Copying your bag to ${path}`)
-            shelljs.cp("./baggo.json", path)
+            shelljs.cp("./bagoo.json", path)
         }
     });
 };

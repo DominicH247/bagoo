@@ -3,7 +3,7 @@
 const yargs = require("yargs")
 const { cmdMapping } = require("./commands/mappings");
 
-const baggo = yargs
+const bagoo = yargs
     .command("add", "Adds a new item", {
         name: {
             describe: "name identifier for your item",
@@ -67,15 +67,15 @@ const baggo = yargs
     .alias("purge", "p")
     .argv
 
-const main = (baggo) => {
-   const baggoCommand = baggo._[0];
+const main = (bagoo) => {
+   const bagooCommand = bagoo._[0];
 
    // take the frist name passed in
    const itemName = (
-       Array.isArray(baggo?.name) ? baggo?.name[0] : baggo?.name
+       Array.isArray(bagoo?.name) ? bagoo?.name[0] : bagoo?.name
     ).toLowerCase();
 
-   cmdMapping[baggoCommand](baggo, itemName);
+   cmdMapping[bagooCommand](bagoo, itemName);
 }
 
-main(baggo);
+main(bagoo);
