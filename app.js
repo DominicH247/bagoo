@@ -71,9 +71,7 @@ const main = (bagoo) => {
    const bagooCommand = bagoo._[0];
 
    // take the frist name passed in
-   const itemName = (
-       Array.isArray(bagoo?.name) ? bagoo?.name[0] : bagoo?.name
-    ).toLowerCase();
+   const itemName = Array.isArray(bagoo?.name) ? bagoo?.name[0].toLowerCase() : bagoo?.name;
 
    cmdMapping[bagooCommand](bagoo, itemName);
 }
