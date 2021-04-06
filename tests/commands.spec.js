@@ -67,7 +67,7 @@ describe("getItem()", () => {
         });
         it("if passed an item name that does not exist it returns not found string", (done) => {
             getItem("does not exist").then(result => {
-                expect(result).toEqual("Item not found");
+                expect(result).toEqual("\nItem not found\n");
                 done();
             });
         });
@@ -94,7 +94,7 @@ describe("getItem()", () => {
         })
         it("When pasing in a non existant flag it returns an error message", (done) => {
             getItem("item 1", "invalid").then(result => {
-                expect(result).toEqual("Invalid flag");
+                expect(result).toEqual("\nInvalid flag\n");
                 done();
             });
         })
@@ -141,13 +141,13 @@ describe("addItem()", () => {
         })
         it("when passing a new item name with no flags return an error to enter a value", (done) => {
             return addItem("DOES NOT EXIST").catch(err => {
-                expect(err).toEqual("Please enter a value for your new item")
+                expect(err).toEqual("\nPlease enter a value for your new item\n")
                 done();
             })
         })
         it("when passing a new item name with value of empty stings return an error to enter a value", (done) => {
             return addItem("something new", { value: "" }).catch(err => {
-                expect(err).toEqual("Please enter a value for your new item")
+                expect(err).toEqual("\nPlease enter a value for your new item\n")
                 done();
             })
         })
@@ -281,7 +281,7 @@ describe("listItems()", () => {
         })
         it("returns error message if category is not found", (done) => {
             listItems("not exist").catch(err => {
-                expect(err).toEqual("category does not exist")
+                expect(err).toEqual("\ncategory does not exist\n")
                 done()
             })
         })
