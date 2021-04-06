@@ -1,7 +1,7 @@
 # Bagoo
 A simple CLI tool for storing your favrourite commands or for holding onto short notes
 ## Installation
-`npm install bagoo`
+`npm install bagoo -g`
 
 ## Usage
 An item in baggo consists of:
