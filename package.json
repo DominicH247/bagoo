@@ -1,6 +1,6 @@
 {
   "name": "bagoo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple CLI tool for storing your favrourite commands or for holding onto short notes",
   "main": "app.js",
   "scripts": {
