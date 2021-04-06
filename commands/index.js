@@ -20,11 +20,11 @@ exports.getItem = (itemName, flag) => {
         .then(body => JSON.parse(body))
         .then(content => {
             if(!content?.[itemName] || !itemName) {
-                return "Item not found"
+                return "\nItem not found\n"
             };
 
             if(!content?.[itemName]?.[flag] && flag){
-                return "Invalid flag"
+                return "\nInvalid flag\n"
             };
 
             if(flag){
@@ -55,7 +55,7 @@ exports.addItem = (itemName, itemDto = {}) => {
                 isContainingValue = Object.keys(dtoCopy).includes("value");
                 
                 if(!isContainingValue || itemDto?.value === ""){
-                    return Promise.reject("Please enter a value for your new item");
+                    return Promise.reject("\nPlease enter a value for your new item\n");
                 }
             }
 
@@ -103,7 +103,7 @@ exports.listItems = (category = null) => {
                     })
                     .map(itemName => ({ [itemName]: content[itemName]?.description || "No description" }))
 
-                return catagories.length ? catagories : Promise.reject("category does not exist");
+                return catagories.length ? catagories : Promise.reject("\ncategory does not exist\n");
             } 
 
             return [...new Set(Object.keys(content).map(itemName => content[itemName].category))];
@@ -139,7 +139,7 @@ exports.removeItem = (itemName = null, isPurge = false) => {
  * Does not delete the original store or switches the store context
  */
 exports.copybagoo = () => {
-    prompt.message = "Enter the path to where you want to export your bag to";
+    prompt.message = "\nEnter the path to where you want to export your bag to\n";
     prompt.start()
     prompt.get("path", (err, result) => {
         if(err) console.log(err);

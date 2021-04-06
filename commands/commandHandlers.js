@@ -41,11 +41,12 @@ exports.get = (bagoo, itemName) => {
         .then(item => {
             // if returned item is object log the key-value to console
             if(typeof item === "object"){
-                Object.entries(item).forEach(item => {
-                    console.log(`${item[0]}: ${item[1]}`)
+                const entries =  Object.entries(item);
+                entries.forEach((item, idx) => {
+                    console.log(`${idx === 0 && '\n'}${item[0]}: ${item[1]} ${entries.length - 1 === idx && '\n'}`)
                 })
             } else {
-                console.log(item)
+                console.log(item);
             }
         });
 }
@@ -60,9 +61,9 @@ exports.remove = (bagoo, itemName) => {
     const remove = () => {
         removeItem(itemName, isPurge).then(() => {
             if(isPurge){
-                console.log("Your bag has been emptied")
+                console.log("\nYour bag has been emptied\n")
             } else {
-                console.log(`Removed ${itemName} from your bag`)
+                console.log(`\nRemoved ${itemName} from your bag\n`)
             }
         })
         .catch(err => console.log(err))
@@ -87,7 +88,7 @@ exports.remove = (bagoo, itemName) => {
         if(itemName){
             remove();
         } else {
-            console.log("Enter the name of the item your want to remove e.g. -n='item name'")
+            console.log("\nEnter the name of the item your want to remove e.g. -n='item name'\n")
         }
     }
 };
@@ -101,14 +102,17 @@ exports.list = (bagoo) => {
     listItems(bagoo?.category)
         .then(list => {
             if(category){
-                console.log(`Items recorded under ${category}:`)
-                list.forEach(item => {
+                console.log(`\nItems recorded under ${category}:`)
+                list.forEach((item, idx) => {
                     const entry = Object.entries(item)[0];
-                    console.log(`- ${entry[0]} : ${entry[1]}`)
+                    console.log(`- ${entry[0]} : ${entry[1]}${list.length - 1 === idx && '\n'}`);
                 })
             } else {
-                console.log("Available catagories:")
-                list.forEach(cat => console.log(`- ${cat}`))
+                console.log("\nAvailable categories:")
+                list.length ? 
+                    list.forEach(cat => console.log(`- ${cat !== null ? cat : "None"}\n`))
+                    : console.log("- No items\n")
+                
             }
         })
         .catch(err => console.log(err));
