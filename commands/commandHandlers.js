@@ -43,7 +43,7 @@ exports.get = (bagoo, itemName) => {
             if(typeof item === "object"){
                 const entries =  Object.entries(item);
                 entries.forEach((item, idx) => {
-                    console.log(`${idx === 0 && '\n'}${item[0]}: ${item[1]} ${entries.length - 1 === idx && '\n'}`)
+                    console.log(`${idx === 0 ? '\n':""}${item[0]}: ${item[1]} ${entries.length - 1 === idx ? '\n':""}`)
                 })
             } else {
                 console.log(item);
@@ -105,7 +105,7 @@ exports.list = (bagoo) => {
                 console.log(`\nItems recorded under ${category}:`)
                 list.forEach((item, idx) => {
                     const entry = Object.entries(item)[0];
-                    console.log(`- ${entry[0]} : ${entry[1]}${list.length - 1 === idx && '\n'}`);
+                    console.log(`- ${entry[0]} : ${entry[1]}${list.length - 1 === idx ? '\n':""}`);
                 })
             } else {
                 console.log("\nAvailable categories:")
