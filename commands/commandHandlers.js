@@ -4,7 +4,8 @@ const {
     getItem,
     removeItem,
     listItems,
-    copybagoo
+    copybagoo,
+    configureBagoo
 } = require("./index");
 
 /**
@@ -123,6 +124,11 @@ exports.list = (bagoo) => {
  */
 exports.copy = () => {
     copybagoo()
+};
+
+exports.configure = () => {
+    const location = bagoo?.location;
+    console.log(location)
 };
 
 exports.baseDefault = () => console.log("Please enter a valid command, for help type bagoo --help");

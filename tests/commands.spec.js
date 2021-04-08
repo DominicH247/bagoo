@@ -1,5 +1,6 @@
-const { getItem, addItem, listItems, removeItem } = require("../commands/index");
+const { getItem, addItem, listItems, removeItem, configure, configureBagoo } = require("../commands/index");
 const fs = require("fs").promises;
+const os = require('os');
 
 beforeEach(() => {
     const testData = {
@@ -325,3 +326,34 @@ describe("removeItem()", () => {
         });
     });
 });
+
+describe("configureBagoo()", () => {
+    describe("configure the location of the bagoo store", () => {
+        it("when passing path it sets the bagoo store location to the path", (done) => {
+            const homedir = os.homedir()
+        
+            fs.copyFile("bagoo.json", homedir.concat("/bagoo.json"))
+                .then(() => {
+                    return configureBagoo(homedir);
+                })
+                .then(result => {
+                expect(result).toEqual(homedir.concat("/bagoo.json"));
+                
+                // remove file after test
+                return fs.unlink(homedir.concat("/bagoo.json"))
+            }).then(() => done());
+        })
+        it("if file does not exist return an error", (done) => {
+            configureBagoo("/home").catch(err => {
+                expect(err).toEqual("\nNo bagoo file found, copy your bagoo.json" + 
+                    " file to the location first using the bagoo \"copy\" command\n")
+                done();
+            })
+        })
+        it("if path is empty return an error", () => {
+            configureBagoo("").catch(err => {
+                expect(err).toEqual("\nPlease enter a valid path\n")
+            })
+        })
+    })
+})

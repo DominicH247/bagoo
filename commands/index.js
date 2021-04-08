@@ -150,3 +150,22 @@ exports.copybagoo = () => {
         }
     });
 };
+
+/**
+ * Sets a new location for the bagoo
+ * @param {String} path 
+ * @returns Promise
+ */
+exports.configureBagoo = (path="") => {
+    if(!path){
+        return Promise.reject("\nPlease enter a valid path\n")
+    }
+    bagoo = path.concat("/bagoo.json");
+    return fs.access(bagoo, fs.F_OK)
+        .then(() => {
+                console.log(`\nLocation set to ${bagoo}`);
+                return bagoo
+            })
+            .catch(() => Promise.reject("\nNo bagoo file found, copy your bagoo.json file" +
+                " to the location first using the bagoo \"copy\" command\n"))
+}

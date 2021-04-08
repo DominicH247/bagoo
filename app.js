@@ -49,7 +49,6 @@ const bagoo = yargs
     .command("remove", "remove a particular item or empty your entire bag", {
         name: {
             describe: "name identifier for the item you want to remove",
-
             demandOption: false
         },
         purge: {
@@ -58,6 +57,12 @@ const bagoo = yargs
         }
     })
     .command("copy", "copy your bag to another location")
+    .command("config", "configure the location of the bagoo store", {
+        location: {
+            describe: "path to the bagoo store",
+            demandOption: true
+        }
+    })
     .help()
     .alias("help", "h")
     .alias("description", "d")
@@ -65,6 +70,7 @@ const bagoo = yargs
     .alias("value", "v")
     .alias("name", "n")
     .alias("purge", "p")
+    .alias("location, l")
     .argv
 
 const main = (bagoo) => {
