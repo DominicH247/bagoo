@@ -70,7 +70,7 @@ const bagoo = yargs
     .alias("value", "v")
     .alias("name", "n")
     .alias("purge", "p")
-    .alias("location, l")
+    .alias("location", "l")
     .argv
 
 const main = (bagoo) => {
