@@ -145,3 +145,16 @@ You will then be notfied.
 ```
 Location of your bag has been set to '/home/documents'
 ```
+
+## Development
+### Dependencies
+- app-root-path: ^3.0.0
+- prompt: ^1.1.0
+- shelljs: ^0.8.4
+- yargs: ^16.2.0
+- jest: ^16.2.0
+
+### Running unit tests
+```
+npm run test
+```
