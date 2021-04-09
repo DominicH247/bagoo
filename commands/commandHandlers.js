@@ -132,7 +132,9 @@ exports.copy = () => {
 
 exports.config = (bagoo) => {
     const location = bagoo?.location;
-    configureBagoo(location).catch(err => console.log(err))
+    configureBagoo(location)
+    .then(() => console.log(`\nLocation of your bag has been set to '${location}'\n`))
+    .catch(err => console.log(err))
 };
 
 exports.baseDefault = () => console.log("Please enter a valid command, for help type bagoo --help");

@@ -1,5 +1,5 @@
 # Bagoo
-A simple CLI tool for storing your favrourite commands or for holding onto short notes
+A simple CLI tool for storing your favourite commands or for holding onto short notes
 ## Installation
 `npm install bagoo -g`
 
@@ -16,7 +16,8 @@ An item in baggo consists of:
 - **get** - retrieve an item
 - **list** - lists all available catagories or lists all items within a category
 - **remove** - an item or all items from your bag
-- **copy** - creates a copy of your bag to another location
+- **copy** - creates a copy of your bag at another location
+- **config** - configure the location of your bag
 ### Adding an item to baggo
 - `--name | -n ` (mandatory)
 - `--value | -v` (mandatory)
@@ -131,4 +132,16 @@ You will then be notfied.
 Copying your bag to /home/documents
 ```
 
-**NOTE**: this command only creates a copy of your bag at the specified location it does not switch the context. (TODO)
+### Configuring the location of your bag
+Copy your bag to your chosen location and then configure bagoo to point to the new location.
+
+- `--location | -l` (mandatory)
+
+Example
+```sh
+bag config -l="/home/documents"
+```
+You will then be notfied.
+```
+Location of your bag has been set to '/home/documents'
+```
