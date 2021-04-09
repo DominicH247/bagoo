@@ -11,9 +11,10 @@ const {
 /**
  * Add item command handler
  * @param {Object} bagoo 
- * @param {String} itemName 
+ * @param {String} itemName
+ * @param {String} path
  */
-exports.add = (bagoo, itemName) => {
+exports.add = (bagoo, path, itemName) => {
     // create itemDto
     const itemDto = Object.keys(bagoo).reduce((ref, curr) => {
         if(curr === "category" || curr === "value" || curr === "description"){
@@ -22,15 +23,16 @@ exports.add = (bagoo, itemName) => {
         return ref
     }, {});
 
-    addItem(itemName, itemDto).catch(err => console.log(err));
+    addItem(itemName, itemDto, path).catch(err => console.log(err));
 };
 
 /**
  * Get item command handler
  * @param {Object} bagoo 
- * @param {String} itemName 
+ * @param {String} itemName
+ * @param {String} path
  */
-exports.get = (bagoo, itemName) => {
+exports.get = (bagoo, path, itemName) => {
     // get the first flag passed in ignores any associated value
     const flag = Object.keys(bagoo).filter(flag => {
         if (flag === "value" || flag === "description" || flag === "category"){
@@ -38,7 +40,7 @@ exports.get = (bagoo, itemName) => {
         }
     })[0]
 
-    return getItem(itemName, flag)
+    return getItem(itemName, flag, path)
         .then(item => {
             // if returned item is object log the key-value to console
             if(typeof item === "object"){
@@ -47,7 +49,7 @@ exports.get = (bagoo, itemName) => {
                     console.log(`${idx === 0 ? '\n':""}${item[0]}: ${item[1]} ${entries.length - 1 === idx ? '\n':""}`)
                 })
             } else {
-                console.log(item);
+                console.log(`\n${item}\n`);
             }
         });
 }
@@ -55,16 +57,17 @@ exports.get = (bagoo, itemName) => {
 /**
  * Remove item command handler
  * @param {Object} bagoo 
- * @param {String} itemName 
+ * @param {String} itemName
+ * @param {String} path
  */
-exports.remove = (bagoo, itemName) => {
+exports.remove = (bagoo, path ,itemName) => {
     let isPurge = bagoo?.purge || false;
     const remove = () => {
-        removeItem(itemName, isPurge).then(() => {
+        removeItem(itemName, isPurge, path).then(() => {
             if(isPurge){
                 console.log("\nYour bag has been emptied\n")
             } else {
-                console.log(`\nRemoved ${itemName} from your bag\n`)
+                console.log(`\nRemoved '${itemName}' from your bag\n`)
             }
         })
         .catch(err => console.log(err))
@@ -97,10 +100,11 @@ exports.remove = (bagoo, itemName) => {
 /**
  * Remove item command handler
  * @param {Object} bagoo 
+ * @param {String} path
  */
-exports.list = (bagoo) => {
+exports.list = (bagoo, path) => {
     const category = bagoo?.category;
-    listItems(bagoo?.category)
+    listItems(bagoo?.category, path)
         .then(list => {
             if(category){
                 console.log(`\nItems recorded under ${category}:`)
@@ -126,9 +130,9 @@ exports.copy = () => {
     copybagoo()
 };
 
-exports.configure = () => {
+exports.config = (bagoo) => {
     const location = bagoo?.location;
-    console.log(location)
+    configureBagoo(location)
 };
 
 exports.baseDefault = () => console.log("Please enter a valid command, for help type bagoo --help");

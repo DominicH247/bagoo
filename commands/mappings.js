@@ -1,4 +1,4 @@
-const { add, get, list, remove, copy, baseDefault, configure } = require("./commandHandlers");
+const { add, get, list, remove, copy, baseDefault, config } = require("./commandHandlers");
 
 // add additional commands here
 
@@ -8,6 +8,6 @@ exports.cmdMapping = {
     list,
     remove,
     copy,
-    configure,
+    config,
     baseDefault
 };

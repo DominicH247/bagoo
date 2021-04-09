@@ -1,22 +1,16 @@
 const fs = require("fs").promises;
 const prompt = require("prompt")
 const shelljs = require("shelljs");
-const appRoot = require("app-root-path");
-
-let bagoo = appRoot.path.concat("/bagoo.json");
-
-if(process.env.NODE_ENV === "test"){
-    bagoo = appRoot.path.concat("/tests/test.json");
-}
 
 /**
  * Retrieves a single item from the bagoo json store
  * @param {String} itemName 
  * @param {string} flag 
+ * @param {String} bagooFilePath
  * @returns {Promise}
  */
-exports.getItem = (itemName, flag) => {
-    return fs.readFile(bagoo)
+exports.getItem = (itemName, flag, bagooFilePath) => {
+    return fs.readFile(bagooFilePath)
         .then(body => JSON.parse(body))
         .then(content => {
             if(!content?.[itemName] || !itemName) {
@@ -38,11 +32,12 @@ exports.getItem = (itemName, flag) => {
 /**
  * Adds an item to the bagoo json store
  * @param {String} itemName 
- * @param {Object} itemDto 
+ * @param {Object} itemDto
+ * @param {String} bagooFilePath
  * @returns {Promise}
  */
-exports.addItem = (itemName, itemDto = {}) => {
-    return fs.readFile(bagoo)
+exports.addItem = (itemName, itemDto = {}, bagooFilePath) => {
+    return fs.readFile(bagooFilePath)
         .then(body => JSON.parse(body))
         .then(content => {
             const dtoCopy = {...itemDto}
@@ -81,17 +76,18 @@ exports.addItem = (itemName, itemDto = {}) => {
                 ...transferObj
             }
 
-            return fs.writeFile(bagoo, JSON.stringify(content, null, 2))
+            return fs.writeFile(bagooFilePath, JSON.stringify(content, null, 2))
         })
 };
 
 /**
  * Lists the available catagories within the bagoo json store, or if passed an existing category will list all items held within that category 
  * @param {String} category 
+ * @param {String} bagooFilePath
  * @returns {Array}
  */
-exports.listItems = (category = null) => {
-    return fs.readFile(bagoo)
+exports.listItems = (category = null, bagooFilePath) => {
+    return fs.readFile(bagooFilePath)
         .then(body => JSON.parse(body))
         .then(content => {
             if(category !== null){
@@ -113,15 +109,16 @@ exports.listItems = (category = null) => {
 /**
  * Removes an item when passed in the name identifier or purge all items
  * @param {String} itemName 
- * @param {Boolean} isPurge 
+ * @param {Boolean} isPurge
+ * @param {String} bagooFilePath
  * @returns {Promise}
  */
-exports.removeItem = (itemName = null, isPurge = false) => {
-    return fs.readFile(bagoo)
+exports.removeItem = (itemName = null, isPurge = false, bagooFilePath) => {
+    return fs.readFile(bagooFilePath)
         .then(body => JSON.parse(body))
         .then(content => {
             if(isPurge){
-                return fs.writeFile(bagoo, JSON.stringify({}, null, 2))
+                return fs.writeFile(bagooFilePath, JSON.stringify({}, null, 2))
             }
 
             // check if item exists
@@ -130,7 +127,7 @@ exports.removeItem = (itemName = null, isPurge = false) => {
             }
 
             delete content[itemName];
-            return fs.writeFile(bagoo, JSON.stringify(content, null, 2))
+            return fs.writeFile(bagooFilePath, JSON.stringify(content, null, 2))
         })
 };
 
@@ -163,7 +160,7 @@ exports.configureBagoo = (path="") => {
     bagoo = path.concat("/bagoo.json");
     return fs.access(bagoo, fs.F_OK)
         .then(() => {
-                console.log(`\nLocation set to ${bagoo}`);
+                console.log(`\nLocation set to ${bagoo}\n`);
                 return bagoo
             })
             .catch(() => Promise.reject("\nNo bagoo file found, copy your bagoo.json file" +

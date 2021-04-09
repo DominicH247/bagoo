@@ -2,6 +2,7 @@
 
 const yargs = require("yargs")
 const { cmdMapping } = require("./commands/mappings");
+const { getBagooPath } = require("./utils/index");
 
 const bagoo = yargs
     .command("add", "Adds a new item", {
@@ -74,12 +75,20 @@ const bagoo = yargs
     .argv
 
 const main = (bagoo) => {
-   const bagooCommand = bagoo._[0];
-
-   // take the frist name passed in
-   const itemName = Array.isArray(bagoo?.name) ? bagoo?.name[0].toLowerCase() : bagoo?.name;
-
-   cmdMapping[bagooCommand](bagoo, itemName);
+    getBagooPath()
+        .then(path => {
+            const bagooPath = path.concat("/bagoo.json");
+            const bagooCommand = bagoo._[0];
+            
+            // take the frist name passed in
+            const itemName = Array.isArray(bagoo?.name) ? bagoo?.name[0].toLowerCase() : bagoo?.name;
+            
+            if(!bagooCommand){
+                return Promise.reject("\nPlease enter a valid command, for help use \"bag --help\"\n")
+            }
+            cmdMapping[bagooCommand](bagoo, bagooPath, itemName);
+        })
+        .catch(err => console.log(err))
 }
 
 main(bagoo);
