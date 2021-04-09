@@ -1,6 +1,7 @@
 const fs = require("fs").promises;
 const prompt = require("prompt")
 const shelljs = require("shelljs");
+const { setBagooPath } = require("../utils/index");
 
 /**
  * Retrieves a single item from the bagoo json store
@@ -142,7 +143,7 @@ exports.copybagoo = () => {
         if(err) console.log(err);
         const { path } = result;
         if(path){
-            console.log(`Copying your bag to ${path}`)
+            console.log(`\nCopying your bag to ${path}\n`)
             shelljs.cp("./bagoo.json", path)
         }
     });
@@ -154,15 +155,9 @@ exports.copybagoo = () => {
  * @returns Promise
  */
 exports.configureBagoo = (path="") => {
-    if(!path){
-        return Promise.reject("\nPlease enter a valid path\n")
+    if(typeof path !== "string" || !path){
+        return Promise.reject("\nPlease enter a valid path\n");
     }
-    bagoo = path.concat("/bagoo.json");
-    return fs.access(bagoo, fs.F_OK)
-        .then(() => {
-                console.log(`\nLocation set to ${bagoo}\n`);
-                return bagoo
-            })
-            .catch(() => Promise.reject("\nNo bagoo file found, copy your bagoo.json file" +
-                " to the location first using the bagoo \"copy\" command\n"))
+
+    return setBagooPath(path);
 }

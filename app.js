@@ -84,7 +84,7 @@ const main = (bagoo) => {
             const itemName = Array.isArray(bagoo?.name) ? bagoo?.name[0].toLowerCase() : bagoo?.name;
             
             if(!bagooCommand){
-                return Promise.reject("\nPlease enter a valid command, for help use \"bag --help\"\n")
+                return Promise.reject("\nPlease enter a valid command, for help use 'bag --help'\n")
             }
             cmdMapping[bagooCommand](bagoo, bagooPath, itemName);
         })

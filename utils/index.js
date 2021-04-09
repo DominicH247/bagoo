@@ -1,8 +1,16 @@
 const appRoot = require("app-root-path");
 const fs = require("fs").promises;
 
-const config = "./config.json";
+let config = "./config.json";
 
+if(process.env.NODE_ENV === "test"){
+    config = "./tests/testConfig.json";
+}
+
+/**
+ * Gets the bagoo_path from config.json
+ * @returns Promise
+ */
 const getBagooPath = () => {
     return fs.readFile(config)
         .then(body => JSON.parse(body))
@@ -15,6 +23,11 @@ const getBagooPath = () => {
         });
 };
 
+/**
+ * Sets the bagoo_path from config.json
+ * @param {String} path 
+ * @returns Promise
+ */
 const setBagooPath = (path = appRoot.path) => {
     return fs.readFile(config)
         .then(body => JSON.parse(body))
