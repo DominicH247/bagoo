@@ -126,8 +126,8 @@ exports.list = (bagoo, path) => {
 /**
  * Copy bagoo json store command handler
  */
-exports.copy = () => {
-    copybagoo()
+exports.copy = (bagoo, path) => {
+    copybagoo(path)
 };
 
 exports.config = (bagoo) => {

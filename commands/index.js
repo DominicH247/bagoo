@@ -136,7 +136,8 @@ exports.removeItem = (itemName = null, isPurge = false, bagooFilePath) => {
  * Copys the bagoo json store the path passed in by the user
  * Does not delete the original store or switches the store context
  */
-exports.copybagoo = () => {
+exports.copybagoo = (bagooFilePath) => {
+    console.log(bagooFilePath)
     prompt.message = "\nEnter the path to where you want to export your bag to\n";
     prompt.start()
     prompt.get("path", (err, result) => {
@@ -144,7 +145,7 @@ exports.copybagoo = () => {
         const { path } = result;
         if(path){
             console.log(`\nCopying your bag to ${path}\n`)
-            shelljs.cp("./bagoo.json", path)
+            shelljs.cp(bagooFilePath, path)
         }
     });
 };
