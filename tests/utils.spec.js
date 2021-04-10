@@ -2,7 +2,7 @@ const fs = require("fs").promises;
 const appRoot = require("app-root-path");
 const { setBagooPath, getBagooPath } = require("../utils/index");
 
-const reset = () => fs.writeFile("./tests/testConfig.json", JSON.stringify({
+const reset = () => fs.writeFile(appRoot.path.concat("/tests/testConfig.json"), JSON.stringify({
     bago_path: ""
 }, null, 2));
 

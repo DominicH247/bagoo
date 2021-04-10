@@ -1,10 +1,10 @@
 const appRoot = require("app-root-path");
 const fs = require("fs").promises;
 
-let config = "./config.json";
+let config = appRoot.path.concat("/config.json");
 
 if(process.env.NODE_ENV === "test"){
-    config = "./tests/testConfig.json";
+    config = appRoot.path.concat("/tests/testConfig.json");
 }
 
 /**
